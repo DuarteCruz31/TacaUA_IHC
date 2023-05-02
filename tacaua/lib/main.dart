@@ -21,10 +21,103 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+class _LoginDemoState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("Admin Login Page"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(top: 60.0),
+              child: Text('Admin Login Page',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ),
+            /* const Text(
+              'Admin Login Page',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ), */
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 50.0),
+              child: Center(
+                child: Container(
+                    width: 200,
+                    height: 150,
+                    /*decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50.0)),*/
+                    child: const Icon(
+                      Icons.person_outlined,
+                      size: 200,
+                    )),
+              ),
+            ),
+            const Padding(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                    hintText: 'Enter valid email id as abc@gmail.com'),
+              ),
+            ),
+            const Padding(
+              padding:
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    hintText: 'Enter secure password'),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                //TODO FORGOT PASSWORD SCREEN GOES HERE
+              },
+              child: const Text(
+                'Forgot Password',
+                style: TextStyle(color: Colors.blue, fontSize: 15),
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                },
+                child: const Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 130,
+            ),
+            const Text('New User? Create Account')
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // Lista de emojis para a scrollbar horizontal
 class _HomePageState extends State<HomePage> {
   String _selectedTab = 'resultados';
-  List<String> _sports = [
+  final List<String> _sports = [
     '⚽️',
     '🏀',
     '🏐',
@@ -46,13 +139,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         // Logotipo
-        title: Text('TaçaUA'),
+        title: const Text('TaçaUA'),
         centerTitle: true,
-
-        // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
         actions: [
+          // Botao de login
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.admin_panel_settings_sharp),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => _LoginDemoState()),
+              );
+            },
+          ),
+          // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
+          IconButton(
+            icon: const Icon(Icons.search),
             onPressed: () {
               // Falta meter aqui a ação de pesquisa
             },
@@ -62,7 +164,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             // Botao de Resultados e Classificações
             child: Row(
               children: [
@@ -73,10 +175,10 @@ class _HomePageState extends State<HomePage> {
                         _selectedTab = 'resultados';
                       });
                     },
-                    child: Text('Resultados'),
+                    child: const Text('Resultados'),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
@@ -104,8 +206,8 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                   child: Container(
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: _selectedSportIndex == index
                           ? Colors.blueGrey[100]
