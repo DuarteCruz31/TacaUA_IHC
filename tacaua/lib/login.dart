@@ -105,10 +105,6 @@ class _LoginDemoState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 130,
-            ),
-            const Text('New User? Create Account')
           ],
         ),
       ),

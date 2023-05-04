@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TaçaUA',
-      theme: ThemeData(primarySwatch: Colors.blueGrey),
+      theme: ThemeData(primarySwatch: Colors.green),
       routes: {
         '/': (context) => HomePage(),
         '/login': (context) => LoginPage(),
@@ -27,6 +27,20 @@ class HomePage extends StatefulWidget {
 
 // Lista de emojis para a scrollbar horizontal
 class _HomePageState extends State<HomePage> {
+  DateTime _selectedDate = DateTime.now();
+
+  void _previousDay() {
+    setState(() {
+      _selectedDate = _selectedDate.subtract(const Duration(days: 1));
+    });
+  }
+
+  void _nextDay() {
+    setState(() {
+      _selectedDate = _selectedDate.add(const Duration(days: 1));
+    });
+  }
+
   String _selectedTab = 'resultados';
   final List<String> _sports = [
     '⚽️',
@@ -134,6 +148,30 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: _previousDay,
+                    ),
+                    Text(
+                      '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios),
+                      onPressed: _nextDay,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           // Isto aqui é o que muda entre resultados e classificações, é tipo aquela merda no html do onclick que vai para uma função
           Expanded(
             child: _selectedTab == 'resultados'
@@ -157,11 +195,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Próximos jogos',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
+              SizedBox(height: 0),
               GameCard(
                 team1: 'Núcleo A',
                 team2: 'Núcleo B',
@@ -189,29 +223,33 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(16),
-          color: Colors.grey[200],
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Resultados',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-              ResultCard(
+              SizedBox(height: 0),
+              GameCard(
                 team1: 'Núcleo A',
                 team2: 'Núcleo B',
                 score1: 3,
                 score2: 1,
+                location: 'Campo X',
               ),
-              ResultCard(
+              GameCard(
                 team1: 'Núcleo C',
                 team2: 'Núcleo D',
                 score1: 2,
                 score2: 2,
+                location: 'Campo Y',
+              ),
+              GameCard(
+                team1: 'Núcleo E',
+                team2: 'Núcleo F',
+                score1: 4,
+                score2: 5,
+                location: 'Campo Z',
               ),
             ],
           ),
@@ -237,42 +275,49 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 16),
               ClassificacaoCard(
                 team: 'Núcleo A',
+                position: 1,
                 points: 6,
                 goalsScored: 5,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
                 team: 'Núcleo B',
+                position: 2,
                 points: 3,
                 goalsScored: 3,
                 goalsConceded: 4,
               ),
               ClassificacaoCard(
                 team: 'Núcleo C',
+                position: 3,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
                 team: 'Núcleo D',
+                position: 4,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
                 team: 'Núcleo E',
+                position: 5,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
                 team: 'Núcleo F',
+                position: 6,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
                 team: 'Núcleo G',
+                position: 7,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
@@ -288,6 +333,7 @@ class _HomePageState extends State<HomePage> {
 // Cards para as classificações
 class ClassificacaoCard extends StatelessWidget {
   final String team;
+  final int position;
   final int points;
   final int goalsScored;
   final int goalsConceded;
@@ -295,6 +341,7 @@ class ClassificacaoCard extends StatelessWidget {
   const ClassificacaoCard({
     Key? key,
     required this.team,
+    required this.position,
     required this.points,
     required this.goalsScored,
     required this.goalsConceded,
@@ -305,13 +352,34 @@ class ClassificacaoCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16),
         leading: Text(
-          team,
+          position.toString(),
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        title: Text('Pontos: $points'),
-        subtitle: Text('Golos marcados: $goalsScored'),
-        trailing: Text('Golos sofridos: $goalsConceded'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                team,
+                style: TextStyle(fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Text(
+              'Pontos: $points',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Golos marcados: $goalsScored'),
+            Text('Golos sofridos: $goalsConceded'),
+          ],
+        ),
       ),
     );
   }
@@ -321,78 +389,58 @@ class ClassificacaoCard extends StatelessWidget {
 class GameCard extends StatelessWidget {
   final String team1;
   final String team2;
-  final String time;
+  final String? time;
   final String location;
+  final int score1;
+  final int score2;
 
   const GameCard({
     Key? key,
     required this.team1,
     required this.team2,
-    required this.time,
+    this.time,
     required this.location,
+    this.score1 = -1,
+    this.score2 = -1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool gamePlayed = score1 >= 0 && score2 >= 0;
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              team1,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  team1,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('vs'),
+                Text(
+                  team2,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Text('vs'),
-            Text(
-              team2,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Expanded(
+              child: Center(
+                child: Text(gamePlayed
+                    ? 'Local: $location'
+                    : 'Horário: ${time ?? ''} - Local: $location'),
+              ),
             ),
+            if (gamePlayed)
+              Text(
+                '$score1 - $score2',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
           ],
         ),
-        title: Text('Local: $location'),
-        subtitle: Text('Horário: $time'),
-      ),
-    );
-  }
-}
-
-// Cards para os resultados
-class ResultCard extends StatelessWidget {
-  final String team1;
-  final String team2;
-  final int score1;
-  final int score2;
-
-  const ResultCard({
-    Key? key,
-    required this.team1,
-    required this.team2,
-    required this.score1,
-    required this.score2,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              team1,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('vs'),
-            Text(
-              team2,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        title: Text('Resultado: $score1 - $score2'),
       ),
     );
   }
