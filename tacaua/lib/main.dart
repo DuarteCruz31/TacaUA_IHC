@@ -14,15 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'TaçaUA',
         theme: ThemeData(primarySwatch: Colors.green),
-/*       routes: {
-        '/': (context) => HomePage(),
-        '/login': (context) => LoginPage(),
-      }, */
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/login': (context) => LoginPage(),
+        },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
           nextScreen: MyHomePage(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
+          splashIconSize: 2200,
         ));
   }
 }
@@ -45,11 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 400,
               height: 400,
-              child: Image.asset('assets/TacaUA_logo.png',
-              fit: BoxFit.none,),
+              child: Image.asset(
+                'assets/TacaUA_logo.png',
+                fit: BoxFit.none,
+              ),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "Welcome to Proto Coders Point",
                 style: TextStyle(fontSize: 20),
               ),
@@ -486,5 +489,4 @@ class GameCard extends StatelessWidget {
   // o botão deve ter um padding de 8 em todos os lados
   // o botão deve ter um margin de 8 em todos os lados
   // o botão deve ter um borderRadius de 8
-  
 }
