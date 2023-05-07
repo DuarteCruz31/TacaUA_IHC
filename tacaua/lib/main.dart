@@ -1,32 +1,65 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'TaçaUA',
-      theme: ThemeData(primarySwatch: Colors.green),
-      routes: {
+        title: 'TaçaUA',
+        theme: ThemeData(primarySwatch: Colors.green),
+/*       routes: {
         '/': (context) => HomePage(),
         '/login': (context) => LoginPage(),
-      },
-    );
+      }, */
+        home: AnimatedSplashScreen(
+          splash: 'assets/TacaUA_logo.png', // use any widget here
+          nextScreen: MyHomePage(),
+          splashTransition: SplashTransition.rotationTransition,
+          duration: 3000,
+        ));
   }
 }
 
-class HomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 // Lista de emojis para a scrollbar horizontal
-class _HomePageState extends State<HomePage> {
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget buildHomePage(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 400,
+              height: 400,
+              child: Image.asset('assets/TacaUA_logo.png',
+              fit: BoxFit.none,),
+            ),
+            Container(
+              child: Text(
+                "Welcome to Proto Coders Point",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   DateTime _selectedDate = DateTime.now();
 
   void _previousDay() {
@@ -444,4 +477,14 @@ class GameCard extends StatelessWidget {
       ),
     );
   }
+
+  // se o jogo já tiver sido jogado, o botão deve dizer "editar" e se não tiver sido jogado, o botão deve dizer "adicionar resultado"
+  // o botão deve estar alinhado à direita
+  // o botão deve ter um ícone de lápis
+  // o botão deve ter um fundo azul
+  // o botão deve ter um texto branco
+  // o botão deve ter um padding de 8 em todos os lados
+  // o botão deve ter um margin de 8 em todos os lados
+  // o botão deve ter um borderRadius de 8
+  
 }

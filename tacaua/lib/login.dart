@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.blueGrey),
         routes: {
           '/': (context) => LoginPage(),
-          '/main': (context) => HomePage(),
+          '/main': (context) => MyHomePage(),
         });
   }
 }
@@ -97,7 +97,7 @@ class _LoginDemoState extends State<LoginPage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                      context, MaterialPageRoute(builder: (_) => MyHomePage()));
                 },
                 child: const Text(
                   'Login',
