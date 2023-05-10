@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/login': (context) => LoginPage(),
-          '/economia': (context) => EconomiaPage(),
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyHomePage(),
+          nextScreen: EconomiaPage(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -31,14 +30,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class EconomiaPage extends StatefulWidget {
+  const EconomiaPage({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<EconomiaPage> createState() => _EconomiaPageState();
 }
 
 // Lista de emojis para a scrollbar horizontal
-class _MyHomePageState extends State<MyHomePage> {
+class _EconomiaPageState extends State<EconomiaPage> {
   @override
   Widget buildHomePage(BuildContext context) {
     return Scaffold(
@@ -182,29 +181,11 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: _previousDay,
-                    ),
-                    Text(
-                      '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      onPressed: _nextDay,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          Container(
+            child: const Text(
+              "Economia",
+              style: TextStyle(fontSize: 20),
+            ),
           ),
           // Isto aqui é o que muda entre resultados e classificações, é tipo aquela merda no html do onclick que vai para uma função
           Expanded(
@@ -265,25 +246,25 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'Núcleo A',
-                team2: 'Núcleo B',
+                team1: 'Economia',
+                team2: 'Gestão',
                 score1: 3,
                 score2: 1,
-                location: 'Campo X',
+                location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
-                team1: 'Núcleo C',
-                team2: 'Núcleo D',
+                team1: 'Engenharia de Ambiente',
+                team2: 'Economia',
                 score1: 2,
                 score2: 2,
-                location: 'Campo Y',
+                location: 'Pavilhão Aristides Hall ',
               ),
               GameCard(
-                team1: 'Núcleo E',
-                team2: 'Núcleo F',
+                team1: 'Economia',
+                team2: 'Engenharia Informática',
                 score1: 4,
                 score2: 5,
-                location: 'Campo Z',
+                location: 'Pavilhão Aristides Hall ',
               ),
             ],
           ),

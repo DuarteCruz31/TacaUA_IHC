@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tacaua/admin.dart';
 import 'main.dart';
 
 void main() {
@@ -96,8 +97,8 @@ class _LoginDemoState extends State<LoginPage> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => MyHomePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => MyAdminPage()));
                 },
                 child: const Text(
                   'Login',
