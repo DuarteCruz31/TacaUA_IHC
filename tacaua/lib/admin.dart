@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tacaua/addResult.dart';
 import 'package:tacaua/main.dart';
-import 'login.dart';
+import 'filter.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 void main() {
@@ -88,13 +88,7 @@ class _MyAdminPageState extends State<MyAdminPage> {
     '🤾',
     '🏸',
     '🏉',
-    '🥎',
     '🏓',
-    '🏸',
-    '🏒',
-    '🏑',
-    '🏏',
-    '🥍',
   ];
   int _selectedSportIndex = 0;
 
@@ -117,12 +111,8 @@ class _MyAdminPageState extends State<MyAdminPage> {
             },
           ),
           // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Falta meter aqui a ação de pesquisa
-            },
-          ),
+          // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
+          FilterButton(),
         ],
       ),
       body: Column(
@@ -236,24 +226,24 @@ class _MyAdminPageState extends State<MyAdminPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'Núcleo A',
-                team2: 'Núcleo B',
-                time: '14:00',
-              ),
-              GameCard(
-                team1: 'Núcleo C',
-                team2: 'Núcleo D',
-                time: '16:00',
-              ),
-              GameCard(
-                team1: 'Núcleo E',
-                team2: 'Núcleo F',
-                time: '18:00',
-              ),
-              GameCard(
-                team1: 'Núcleo G',
-                team2: 'Núcleo H',
-                time: '20:00',
+              team1: 'E. Informática',
+              team2: 'E. Mecânica',
+              time: '14:00',
+            ),
+            GameCard(
+              team1: 'Design',
+              team2: 'Música',
+              time: '16:00',
+            ),
+            GameCard(
+              team1: 'E. Civil',
+              team2: 'Matemática',
+              time: '18:00',
+            ),
+            GameCard(
+              team1: 'Biologia',
+              team2: 'Física',
+              time: '20:00',
               ),
             ],
           ),
@@ -266,20 +256,20 @@ class _MyAdminPageState extends State<MyAdminPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'Núcleo A',
-                team2: 'Núcleo B',
+                team1: 'E. Informática',
+                team2: 'E. Química',
                 score1: 3,
-                score2: 2,
+                score2: 1,
               ),
               GameCard(
-                team1: 'Núcleo C',
-                team2: 'Núcleo D',
+                team1: 'E. Civil',
+                team2: 'E. Mecânica',
                 score1: 2,
                 score2: 2,
               ),
               GameCard(
-                team1: 'Núcleo E',
-                team2: 'Núcleo F',
+                team1: 'Design',
+                team2: 'Física',
                 score1: 4,
                 score2: 5,
               ),
@@ -306,49 +296,49 @@ class _MyAdminPageState extends State<MyAdminPage> {
               ),
               SizedBox(height: 16),
               ClassificacaoCard(
-                team: 'Núcleo A',
+                team: 'E. Informática',
                 position: 1,
                 points: 6,
                 goalsScored: 5,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
-                team: 'Núcleo B',
+                team: 'E. Mecânica',
                 position: 2,
                 points: 3,
                 goalsScored: 3,
                 goalsConceded: 4,
               ),
               ClassificacaoCard(
-                team: 'Núcleo C',
+                team: 'E. Química',
                 position: 3,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
-                team: 'Núcleo D',
+                team: 'E. Civil',
                 position: 4,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
-                team: 'Núcleo E',
+                team: 'Design',
                 position: 5,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
-                team: 'Núcleo F',
+                team: 'Economia',
                 position: 6,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,
               ),
               ClassificacaoCard(
-                team: 'Núcleo G',
+                team: 'Física',
                 position: 7,
                 points: 1,
                 goalsScored: 2,
@@ -491,13 +481,4 @@ class GameCard extends StatelessWidget {
     );
   }
 }
-
-  // se o jogo já tiver sido jogado, o botão deve dizer "editar" e se não tiver sido jogado, o botão deve dizer "adicionar resultado"
-  // o botão deve estar alinhado à direita
-  // o botão deve ter um ícone de lápis
-  // o botão deve ter um fundo azul
-  // o botão deve ter um texto branco
-  // o botão deve ter um padding de 8 em todos os lados
-  // o botão deve ter um margin de 8 em todos os lados
-  // o botão deve ter um borderRadius de 8
 
