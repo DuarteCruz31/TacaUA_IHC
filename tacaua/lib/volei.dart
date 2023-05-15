@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tacaua/volei.dart';
+import 'package:tacaua/main.dart';
 import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
@@ -21,11 +21,10 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => LoginPage(),
           '/economia': (context) => EconomiaPage(),
-          '/volei': (context) => VoleiPage(),
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyHomePage(),
+          nextScreen: VoleiPage(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -33,14 +32,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class VoleiPage extends StatefulWidget {
+  const VoleiPage({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<VoleiPage> createState() => _VoleiPageState();
 }
 
 // Lista de emojis para a scrollbar horizontal
-class _MyHomePageState extends State<MyHomePage> {
+class _VoleiPageState extends State<VoleiPage> {
   @override
   Widget buildHomePage(BuildContext context) {
     return Scaffold(
@@ -92,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     '🏉',
     '🏓',
   ];
-  int _selectedSportIndex = 0;
+  int _selectedSportIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -159,10 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       _selectedSportIndex = index;
                     });
-                    if (index == 2) {
+                    if (index == 0) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => VoleiPage()),
+                        MaterialPageRoute(builder: (context) => MyHomePage()),
                       );
                     }
                   },
@@ -233,27 +232,21 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
+                team1: 'Economia',
+                team2: 'E. Quimica',
+                time: '13:00',
+                location: 'Pavilhão Aristides Hall',
+              ),
+              GameCard(
+                team1: 'Matematica',
+                team2: 'E. Informática',
+                time: '15:00',
+                location: 'Pavilhão Aristides Hall',
+              ),
+              GameCard(
+                team1: 'Fisioterapia',
                 team2: 'ET',
-                time: '14:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'Design',
-                team2: 'Música',
-                time: '16:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'E. Civil',
-                team2: 'Matemática',
-                time: '18:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'Biologia',
-                team2: 'Física',
-                time: '20:00',
+                time: '17:00',
                 location: 'Pavilhão Aristides Hall',
               ),
             ],

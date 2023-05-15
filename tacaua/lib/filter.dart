@@ -14,9 +14,21 @@ class _FilterButtonState extends State<FilterButton> {
   String? _curso;
   String? _dia;
 
-  final List<String> _modalidades = ['Atletismo', 'Natação', 'Judo', 'Ciclismo', 'Boxe'];
+  final List<String> _modalidades = [
+    'Atletismo',
+    'Natação',
+    'Judo',
+    'Ciclismo',
+    'Boxe'
+  ];
   final List<String> _sexos = ['Feminino', 'Masculino'];
-  final List<String> _cursos = ['Medicina', 'Engenharia', 'Direito', 'Artes', 'Economia'];
+  final List<String> _cursos = [
+    'Medicina',
+    'Engenharia',
+    'Direito',
+    'Artes',
+    'Economia'
+  ];
   final List<String> _dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
 
   @override
@@ -24,7 +36,8 @@ class _FilterButtonState extends State<FilterButton> {
     return PopupMenuButton<String>(
       icon: Icon(Icons.filter_list),
       itemBuilder: (context) => <PopupMenuEntry<String>>[
-        _buildFilterRow('Modalidade', _modalidades, _modalidade, (String value) {
+        _buildFilterRow('Modalidade', _modalidades, _modalidade,
+            (String value) {
           setState(() {
             _modalidade = value;
           });
@@ -52,7 +65,12 @@ class _FilterButtonState extends State<FilterButton> {
     );
   }
 
-  PopupMenuItem<String> _buildFilterRow(String label, List<String> options, String? value, void Function(String) onChanged) {
+  PopupMenuItem<String> _buildFilterRow(
+    String label,
+    List<String> options,
+    String? value,
+    void Function(String) onChanged,
+  ) {
     return PopupMenuItem<String>(
       child: Row(
         children: [
@@ -61,15 +79,29 @@ class _FilterButtonState extends State<FilterButton> {
             value: value,
             hint: Text(label),
             items: options
-                .map<DropdownMenuItem<String>>((String option) => DropdownMenuItem(
-                      value: option,
-                      child: Text(option),
-                    ))
+                .map<DropdownMenuItem<String>>(
+                    (String option) => DropdownMenuItem(
+                          value: option,
+                          child: Text(option),
+                        ))
                 .toList(),
             onChanged: (String? newValue) {
               setState(() {
                 onChanged(newValue!);
-                _modalidade = newValue;
+                switch (label) {
+                  case 'Modalidade':
+                    _modalidade = newValue;
+                    break;
+                  case 'Sexo':
+                    _sexo = newValue;
+                    break;
+                  case 'Curso':
+                    _curso = newValue;
+                    break;
+                  case 'Dia':
+                    _dia = newValue;
+                    break;
+                }
               });
             },
             underline: Container(),
@@ -85,8 +117,10 @@ class _FilterButtonState extends State<FilterButton> {
       child: Text('Filtrar'),
       onPressed: () {
         // Realizar a filtragem com os filtros selecionados
-        print('Modalidade: $_modalidade, Sexo: $_sexo, Curso: $_curso, Dia: $_dia');
-        Navigator.push(context, MaterialPageRoute(builder: (_) => EconomiaPage()));
+        print(
+            'Modalidade: $_modalidade, Sexo: $_sexo, Curso: $_curso, Dia: $_dia');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => EconomiaPage()));
       },
     );
   }

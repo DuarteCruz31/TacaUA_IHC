@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyAdminPage(),
+          nextScreen: ResultadoJogo(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -31,14 +31,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAdminPage extends StatefulWidget {
-  const MyAdminPage({Key? key}) : super(key: key);
+class ResultadoJogo extends StatefulWidget {
+  const ResultadoJogo({Key? key}) : super(key: key);
   @override
-  State<MyAdminPage> createState() => _MyAdminPageState();
+  State<ResultadoJogo> createState() => _ResultadoJogoState();
 }
 
 // Lista de emojis para a scrollbar horizontal
-class _MyAdminPageState extends State<MyAdminPage> {
+class _ResultadoJogoState extends State<ResultadoJogo> {
   @override
   Widget buildHomePage(BuildContext context) {
     return Scaffold(
@@ -226,11 +226,6 @@ class _MyAdminPageState extends State<MyAdminPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
-                team2: 'ET',
-                time: '14:00',
-              ),
-              GameCard(
                 team1: 'Design',
                 team2: 'Música',
                 time: '16:00',
@@ -257,6 +252,12 @@ class _MyAdminPageState extends State<MyAdminPage> {
               SizedBox(height: 0),
               GameCard(
                 team1: 'E. Informática',
+                team2: 'ET',
+                score1: 4,
+                score2: 1,
+              ),
+              GameCard(
+                team1: 'E. Civil',
                 team2: 'E. Química',
                 score1: 3,
                 score2: 1,
