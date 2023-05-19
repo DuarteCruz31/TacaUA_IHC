@@ -226,24 +226,24 @@ class _MyAdminPageState extends State<MyAdminPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
-                team2: 'ET',
-                time: '14:00',
-              ),
-              GameCard(
-                team1: 'Design',
-                team2: 'Música',
-                time: '16:00',
-              ),
-              GameCard(
-                team1: 'E. Civil',
-                team2: 'Matemática',
-                time: '18:00',
-              ),
-              GameCard(
-                team1: 'Biologia',
-                team2: 'Física',
-                time: '20:00',
+              team1: 'E. Informática',
+              team2: 'E. Mecânica',
+              time: '14:00',
+            ),
+            GameCard(
+              team1: 'Design',
+              team2: 'Música',
+              time: '16:00',
+            ),
+            GameCard(
+              team1: 'E. Civil',
+              team2: 'Matemática',
+              time: '18:00',
+            ),
+            GameCard(
+              team1: 'Biologia',
+              team2: 'Física',
+              time: '20:00',
               ),
             ],
           ),
@@ -481,3 +481,4 @@ class GameCard extends StatelessWidget {
     );
   }
 }
+

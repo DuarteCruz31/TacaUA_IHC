@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tacaua/volei.dart';
 import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => LoginPage(),
           '/economia': (context) => EconomiaPage(),
-          '/volei': (context) => VoleiPage(),
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
@@ -38,6 +36,7 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
 
 // Lista de emojis para a scrollbar horizontal
 class _MyHomePageState extends State<MyHomePage> {
@@ -96,6 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
+     void _navigateToEconomiaPage() {
+      Navigator.pushNamed(context, '/economia');
+    }
+
     return Scaffold(
       appBar: AppBar(
         // Logotipo
@@ -159,12 +163,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       _selectedSportIndex = index;
                     });
-                    if (index == 2) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => VoleiPage()),
-                      );
-                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.all(8),
@@ -234,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 0),
               GameCard(
                 team1: 'E. Informática',
-                team2: 'ET',
+                team2: 'E. Mecânica',
                 time: '14:00',
                 location: 'Pavilhão Aristides Hall',
               ),

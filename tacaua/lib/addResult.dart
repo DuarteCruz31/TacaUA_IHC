@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tacaua/admin.dart';
-import 'package:tacaua/resultadoJogo.dart';
 import 'main.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +16,6 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => addResultPage(),
           '/main': (context) => MyHomePage(),
-          '/resultadoJogo': (context) => ResultadoJogo(),
         });
   }
 }
@@ -100,7 +98,7 @@ class _addResultDemoState extends State<addResultPage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ResultadoJogo()));
+                      MaterialPageRoute(builder: (_) => MyAdminPage()));
                 },
                 child: const Text(
                   'Adicionar',
