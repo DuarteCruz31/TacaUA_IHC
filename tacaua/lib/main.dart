@@ -37,6 +37,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 // Lista de emojis para a scrollbar horizontal
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -94,6 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
+     void _navigateToEconomiaPage() {
+      Navigator.pushNamed(context, '/economia');
+    }
+
     return Scaffold(
       appBar: AppBar(
         // Logotipo
