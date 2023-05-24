@@ -3,6 +3,8 @@ import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
 import 'economia.dart';
+import 'main.dart';
+import 'mainPaginas/volei.dart';
 
 void main() {
   runApp(const MyApp());
@@ -170,6 +172,10 @@ class _VolleyCruzPageState extends State<VolleyCruz> {
                         ),
                         onPressed: () {
                           // Ação a ser executada quando o botão for pressionado
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => VoleiPage()),
+                          );
                         },
                       ),
                     ],

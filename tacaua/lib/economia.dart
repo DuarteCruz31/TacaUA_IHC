@@ -65,7 +65,7 @@ class _EconomiaPageState extends State<EconomiaPage> {
     '🏉',
     '🏓',
   ];
-  int _selectedSportIndex = 0;
+  int _selectedSportIndex = 2;
 
   @override
   Widget build(BuildContext context) {

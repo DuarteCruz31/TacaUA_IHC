@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tacaua/main.dart';
 import 'package:tacaua/mainPaginas/reigby.dart';
 import 'package:tacaua/mainPaginas/volei.dart';
+import '../decrescente.dart';
 import '../login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import '../filter.dart';
@@ -344,15 +345,15 @@ class _PingpongPageState extends State<PingpongPage> {
               GameCard(
                 team1: 'E. Civil',
                 team2: 'E. Mecânica',
-                score1: 2,
+                score1: 0,
                 score2: 2,
                 location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
                 team1: 'Design',
                 team2: 'Física',
-                score1: 4,
-                score2: 5,
+                score1: 2,
+                score2: 1,
                 location: 'Pavilhão Aristides Hall',
               ),
             ],
@@ -361,6 +362,47 @@ class _PingpongPageState extends State<PingpongPage> {
       ],
     );
   }
+
+   String? _selectedOrderBy;
+
+Widget _buildOrderByDropdown() {
+  return Container(
+    width: 150,
+    child: DropdownButton<String>(
+      value: _selectedOrderBy,
+      iconSize: 20,
+      elevation: 16,
+      style: TextStyle(color: Colors.black, fontSize: 14),
+      onChanged: (String? newValue) {
+        setState(() {
+          _selectedOrderBy = newValue!;
+          if (newValue == 'Crescente') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyHomePage()),
+            );
+          } else if (newValue == 'Decrescente') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Decrescente()),
+            );
+          }
+        });
+      },
+      items: <String>[
+        'Crescente',
+        'Decrescente',
+      ].map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      hint: Text('Order by'),
+    ),
+  );
+}
+
 
   // Função que mete la as classificações para as diferentes modalidades
   // Mesma coisa que escrevi na função de cima
@@ -372,10 +414,16 @@ class _PingpongPageState extends State<PingpongPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Classificações',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Classificações',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                _buildOrderByDropdown(),
+              ],
+            ),
               SizedBox(height: 16),
               ClassificacaoCard(
                 team: 'E. Informática',
