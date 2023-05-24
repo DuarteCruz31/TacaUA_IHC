@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tacaua/decrescente.dart';
 import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
 import 'economia.dart';
-import 'mainPaginas/andebol.dart';
-import 'mainPaginas/badminton.dart';
-import 'mainPaginas/basket.dart';
-import 'mainPaginas/pingpong.dart';
-import 'mainPaginas/volei.dart';
-import 'mainPaginas/reigby.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,65 +14,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'TaçaUA',
-        theme: ThemeData(primarySwatch: Colors.orange),
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/login': (context) => LoginPage(),
-          '/economia': (context) => EconomiaPage(),
-          '/volei': (context) => VoleiPage(),
-          '/reigby': (context) => ReigbyPage(),
-          '/pingpong': (context) => PingpongPage(),
-          '/basket': (context) => BasketPage(),
-          '/andebol': (context) => AndebolPage(),
-          '/badminton': (context) => BadmintonPage(),
-        },
-        home: AnimatedSplashScreen(
-          splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyHomePage(),
-          splashTransition: SplashTransition.rotationTransition,
-          duration: 3000,
-          splashIconSize: 2200,
-        ));
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-
-// Lista de emojis para a scrollbar horizontal
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget buildHomePage(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 400,
-              height: 400,
-              child: Image.asset(
-                'assets/TacaUA_logo.png',
-                fit: BoxFit.none,
-              ),
-            ),
-            Container(
-              child: const Text(
-                "Welcome to Proto Coders Point",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
+      title: 'TaçaUA',
+      theme: ThemeData(primarySwatch: Colors.green),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/login': (context) => LoginPage(),
+      },
+      home: AnimatedSplashScreen(
+        splash: 'assets/TacaUA_logo.png', // use any widget here
+        nextScreen: EconomiaPage(),
+        splashTransition: SplashTransition.rotationTransition,
+        duration: 3000,
+        splashIconSize: 2200,
       ),
     );
   }
+}
 
+class VolleyCruz extends StatefulWidget {
+  const VolleyCruz({Key? key}) : super(key: key);
+
+  @override
+  State<VolleyCruz> createState() => _VolleyCruzPageState();
+}
+
+class _VolleyCruzPageState extends State<VolleyCruz> {
   DateTime _selectedDate = DateTime.now();
 
   void _previousDay() {
@@ -104,15 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
     '🏉',
     '🏓',
   ];
-  int _selectedSportIndex = 0;
+  int _selectedSportIndex = 2;
 
   @override
   Widget build(BuildContext context) {
-    
-     void _navigateToEconomiaPage() {
-      Navigator.pushNamed(context, '/economia');
-    }
-
     return Scaffold(
       appBar: AppBar(
         // Logotipo
@@ -176,42 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       _selectedSportIndex = index;
                     });
-                    if (index == 1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BasketPage()),
-                      );
-                    }
-                    if (index == 2) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => VoleiPage()),
-                      );
-                    }
-                    if (index == 3) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AndebolPage()),
-                      );
-                    }
-                    if (index == 4) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BadmintonPage()),
-                      );
-                    }
-                    if (index == 5) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ReigbyPage()),
-                      );
-                    }
-                    if (index == 6) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PingpongPage()),
-                      );
-                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.all(8),
@@ -231,51 +149,34 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: _previousDay,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showDatePicker(
-                          context: context,
-                          initialDate: _selectedDate,
-                          firstDate: DateTime(2023),
-                          lastDate: DateTime(2024),
-                        ).then((selectedDate) {
-                          if (selectedDate != null) {
-                            setState(() {
-                              _selectedDate = selectedDate;
-                            });
-                          }
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.calendar_today),
-                          SizedBox(width: 8),
-                          Text(
-                            '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}',
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        ],
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Economia',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      onPressed: _nextDay,
-                    ),
-                  ],
+                      IconButton(
+                        iconSize: 14,
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          // Ação a ser executada quando o botão for pressionado
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           // Isto aqui é o que muda entre resultados e classificações, é tipo aquela merda no html do onclick que vai para uma função
           Expanded(
@@ -295,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildResultados() {
     return ListView(
       children: [
-          Align(
+                  Align(
             alignment: Alignment.centerLeft,
             child: Container(
               padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
@@ -316,27 +217,9 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
-                team2: 'E. Mecânica',
-                time: '14:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'Design',
-                team2: 'Música',
-                time: '16:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'E. Civil',
-                team2: 'Matemática',
-                time: '18:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
-                team1: 'Biologia',
-                team2: 'Física',
-                time: '20:00',
+                team1: 'Matemática',
+                team2: 'Economia',
+                time: '22:00',
                 location: 'Pavilhão Aristides Hall',
               ),
             ],
@@ -361,22 +244,22 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
-                team2: 'E. Química',
+                team1: 'Economia',
+                team2: 'Gestão',
                 score1: 3,
                 score2: 1,
                 location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
-                team1: 'E. Civil',
-                team2: 'E. Mecânica',
+                team1: 'E. de Ambiente',
+                team2: 'Economia',
                 score1: 2,
                 score2: 2,
-                location: 'Pavilhão Aristides Hall',
+                location: 'Pavilhão Aristides Hall ',
               ),
               GameCard(
-                team1: 'Design',
-                team2: 'Física',
+                team1: 'Economia',
+                team2: 'E. Informática',
                 score1: 4,
                 score2: 5,
                 location: 'Pavilhão Aristides Hall',
@@ -388,123 +271,34 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  String? _selectedOrderBy;
-
-Widget _buildOrderByDropdown() {
-  return Container(
-    width: 150,
-    child: DropdownButton<String>(
-      value: _selectedOrderBy,
-      iconSize: 20,
-      elevation: 16,
-      style: TextStyle(color: Colors.black, fontSize: 14),
-      onChanged: (String? newValue) {
-        setState(() {
-          _selectedOrderBy = newValue!;
-          if (newValue == 'Crescente') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
-            );
-          } else if (newValue == 'Decrescente') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Decrescente()),
-            );
-          }
-        });
-      },
-      items: <String>[
-        'Crescente',
-        'Decrescente',
-      ].map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      hint: Text('Order by'),
-    ),
-  );
-}
-
-
   // Função que mete la as classificações para as diferentes modalidades
   // Mesma coisa que escrevi na função de cima
   Widget _buildClassificacoes() {
-  return ListView(
-    children: [
-      Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Classificações',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                _buildOrderByDropdown(),
-              ],
-            ),
-            SizedBox(height: 16),
-            ClassificacaoCard(
-              team: 'E. Informática',
-              position: 1,
-              points: 6,
-              goalsScored: 5,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Mecânica',
-              position: 2,
-              points: 3,
-              goalsScored: 3,
-              goalsConceded: 4,
-            ),
-            ClassificacaoCard(
-              team: 'E. Química',
-              position: 3,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Civil',
-              position: 4,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Design',
-              position: 5,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Economia',
-              position: 6,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Física',
-              position: 7,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-          ],
+    return ListView(
+      children: [
+        Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Classificações',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              ClassificacaoCard(
+                team: 'Economia',
+                position: 6,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
- }
+      ],
+    );
+  }
 }
 
 // Cards para as classificações

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tacaua/decrescente.dart';
 import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
 import 'economia.dart';
+import 'main.dart';
 import 'mainPaginas/andebol.dart';
 import 'mainPaginas/badminton.dart';
 import 'mainPaginas/basket.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyHomePage(),
+          nextScreen: Decrescente(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -44,15 +44,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Decrescente extends StatefulWidget {
+  const Decrescente({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Decrescente> createState() => _DecrescenteState();
 }
 
 
 // Lista de emojis para a scrollbar horizontal
-class _MyHomePageState extends State<MyHomePage> {
+class _DecrescenteState extends State<Decrescente> {
   @override
   Widget buildHomePage(BuildContext context) {
     return Scaffold(
@@ -451,36 +451,8 @@ Widget _buildOrderByDropdown() {
             ),
             SizedBox(height: 16),
             ClassificacaoCard(
-              team: 'E. Informática',
-              position: 1,
-              points: 6,
-              goalsScored: 5,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Mecânica',
-              position: 2,
-              points: 3,
-              goalsScored: 3,
-              goalsConceded: 4,
-            ),
-            ClassificacaoCard(
-              team: 'E. Química',
-              position: 3,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Civil',
-              position: 4,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Design',
-              position: 5,
+              team: 'Física',
+              position: 7,
               points: 1,
               goalsScored: 2,
               goalsConceded: 2,
@@ -493,10 +465,38 @@ Widget _buildOrderByDropdown() {
               goalsConceded: 2,
             ),
             ClassificacaoCard(
-              team: 'Física',
-              position: 7,
+              team: 'Design',
+              position: 5,
               points: 1,
               goalsScored: 2,
+              goalsConceded: 2,
+            ),
+            ClassificacaoCard(
+              team: 'E. Civil',
+              position: 4,
+              points: 1,
+              goalsScored: 2,
+              goalsConceded: 2,
+            ),
+            ClassificacaoCard(
+              team: 'E. Química',
+              position: 3,
+              points: 1,
+              goalsScored: 2,
+              goalsConceded: 2,
+            ),
+            ClassificacaoCard(
+              team: 'E. Mecânica',
+              position: 2,
+              points: 3,
+              goalsScored: 3,
+              goalsConceded: 4,
+            ),
+            ClassificacaoCard(
+              team: 'E. Informática',
+              position: 1,
+              points: 6,
+              goalsScored: 5,
               goalsConceded: 2,
             ),
           ],

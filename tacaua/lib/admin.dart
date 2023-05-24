@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tacaua/addResult.dart';
 import 'package:tacaua/main.dart';
+import 'adicionarJogo.dart';
 import 'filter.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'resultadoJogo.dart';
+import 'JogoAddConfirmado.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +21,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.green),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/main': (context) => MyHomePage(),
+          '/main': (context) => const MyHomePage(),
           '/addResult': (context) => addResultPage(),
+          '/adicionarJogo': (context) => const ResultadoJogo(),
+          '/jogoAddConfirmado': (context) => const MyConfirmPage(),
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyAdminPage(),
+          nextScreen: const MyAdminPage(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -188,9 +193,31 @@ class _MyAdminPageState extends State<MyAdminPage> {
                       icon: Icon(Icons.arrow_back_ios),
                       onPressed: _previousDay,
                     ),
-                    Text(
-                      '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}',
-                      style: TextStyle(fontSize: 24),
+                    GestureDetector(
+                      onTap: () {
+                        showDatePicker(
+                          context: context,
+                          initialDate: _selectedDate,
+                          firstDate: DateTime(2023),
+                          lastDate: DateTime(2024),
+                        ).then((selectedDate) {
+                          if (selectedDate != null) {
+                            setState(() {
+                              _selectedDate = selectedDate;
+                            });
+                          }
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.calendar_today),
+                          SizedBox(width: 8),
+                          Text(
+                            '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}',
+                            style: TextStyle(fontSize: 24),
+                          ),
+                        ],
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.arrow_forward_ios),
@@ -219,6 +246,48 @@ class _MyAdminPageState extends State<MyAdminPage> {
   Widget _buildResultados() {
     return ListView(
       children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                child: Text(
+                  'Jogos por ocorrer: ',
+                  style: TextStyle(
+                    color: Colors.orange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              Spacer(),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Lógica para redirecionar para outra página
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => addJogoPage()),
+                    );
+                  },
+                  child: Text(
+                    '+',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    elevation: 0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -226,26 +295,37 @@ class _MyAdminPageState extends State<MyAdminPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-              team1: 'E. Informática',
-              team2: 'E. Mecânica',
-              time: '14:00',
-            ),
-            GameCard(
-              team1: 'Design',
-              team2: 'Música',
-              time: '16:00',
-            ),
-            GameCard(
-              team1: 'E. Civil',
-              team2: 'Matemática',
-              time: '18:00',
-            ),
-            GameCard(
-              team1: 'Biologia',
-              team2: 'Física',
-              time: '20:00',
+                team1: 'E. Informática',
+                team2: 'E. Mecânica',
+                time: '14:00',
+              ),
+              GameCard(
+                team1: 'Design',
+                team2: 'Música',
+                time: '16:00',
+              ),
+              GameCard(
+                team1: 'E. Civil',
+                team2: 'Matemática',
+                time: '18:00',
+              ),
+              GameCard(
+                team1: 'Biologia',
+                team2: 'Física',
+                time: '20:00',
               ),
             ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+          child: Text(
+            'Jogos terminados: ',
+            style: TextStyle(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
         SizedBox(height: 0),
@@ -481,4 +561,3 @@ class GameCard extends StatelessWidget {
     );
   }
 }
-

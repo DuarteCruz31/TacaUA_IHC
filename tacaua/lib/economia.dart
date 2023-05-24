@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tacaua/volleyCruz.dart';
 import 'login.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'filter.dart';
 import 'economia.dart';
+import 'economiaCruz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,57 +16,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'TaçaUA',
-        theme: ThemeData(primarySwatch: Colors.green),
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/login': (context) => LoginPage(),
-        },
-        home: AnimatedSplashScreen(
-          splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: EconomiaPage(),
-          splashTransition: SplashTransition.rotationTransition,
-          duration: 3000,
-          splashIconSize: 2200,
-        ));
+      title: 'TaçaUA',
+      theme: ThemeData(primarySwatch: Colors.green),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/login': (context) => LoginPage(),
+      },
+      home: AnimatedSplashScreen(
+        splash: 'assets/TacaUA_logo.png', // use any widget here
+        nextScreen: EconomiaPage(),
+        splashTransition: SplashTransition.rotationTransition,
+        duration: 3000,
+        splashIconSize: 2200,
+      ),
+    );
   }
 }
 
 class EconomiaPage extends StatefulWidget {
   const EconomiaPage({Key? key}) : super(key: key);
+
   @override
   State<EconomiaPage> createState() => _EconomiaPageState();
 }
 
-// Lista de emojis para a scrollbar horizontal
 class _EconomiaPageState extends State<EconomiaPage> {
-  @override
-  Widget buildHomePage(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 400,
-              height: 400,
-              child: Image.asset(
-                'assets/TacaUA_logo.png',
-                fit: BoxFit.none,
-              ),
-            ),
-            Container(
-              child: const Text(
-                "Welcome to Proto Coders Point",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   DateTime _selectedDate = DateTime.now();
 
   void _previousDay() {
@@ -89,7 +65,7 @@ class _EconomiaPageState extends State<EconomiaPage> {
     '🏉',
     '🏓',
   ];
-  int _selectedSportIndex = 2;
+  int _selectedSportIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +152,64 @@ class _EconomiaPageState extends State<EconomiaPage> {
             ),
           ),
           Container(
-            child: const Text(
-              "Economia",
-              style: TextStyle(fontSize: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      // texto a negrito
+                      Text(
+                        'Volleyball',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        iconSize: 14,
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          // Ação a ser executada quando o botão for pressionado
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => VolleyCruz()));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Economia',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        iconSize: 14,
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          // Ação a ser executada quando o botão for pressionado
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => EconomiaCruz()));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           // Isto aqui é o que muda entre resultados e classificações, é tipo aquela merda no html do onclick que vai para uma função
@@ -199,6 +230,20 @@ class _EconomiaPageState extends State<EconomiaPage> {
   Widget _buildResultados() {
     return ListView(
       children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+            child: Text(
+              'Jogos por ocorrer: ',
+              style: TextStyle(
+                color: Colors.orange,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -206,12 +251,29 @@ class _EconomiaPageState extends State<EconomiaPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'Matemática',
+                team1: 'E. Informática',
                 team2: 'Economia',
                 time: '22:00',
                 location: 'Pavilhão Aristides Hall',
               ),
+              GameCard(
+                team1: 'Economia',
+                team2: 'E. de Gestão Indústrial',
+                time: '23:30',
+                location: 'Pavilhão Aristides Hall',
+              ),
             ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+          child: Text(
+            'Jogos terminados: ',
+            style: TextStyle(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
         SizedBox(height: 0),
@@ -222,23 +284,23 @@ class _EconomiaPageState extends State<EconomiaPage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'Economia',
-                team2: 'Gestão',
-                score1: 3,
-                score2: 1,
+                team1: 'Gestão',
+                team2: 'Economia',
+                score1: 9,
+                score2: 4,
                 location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
-                team1: 'E. de Ambiente',
+                team1: 'Química',
                 team2: 'Economia',
-                score1: 2,
+                score1: 7,
                 score2: 2,
                 location: 'Pavilhão Aristides Hall ',
               ),
               GameCard(
                 team1: 'Economia',
-                team2: 'E. Informática',
-                score1: 4,
+                team2: 'E. Mecânica',
+                score1: 1,
                 score2: 5,
                 location: 'Pavilhão Aristides Hall',
               ),
@@ -266,7 +328,7 @@ class _EconomiaPageState extends State<EconomiaPage> {
               SizedBox(height: 16),
               ClassificacaoCard(
                 team: 'Economia',
-                position: 6,
+                position: 3,
                 points: 1,
                 goalsScored: 2,
                 goalsConceded: 2,

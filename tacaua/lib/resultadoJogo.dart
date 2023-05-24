@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tacaua/decrescente.dart';
-import 'login.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:tacaua/addResult.dart';
+import 'package:tacaua/main.dart';
+import 'adicionarJogo.dart';
 import 'filter.dart';
-import 'economia.dart';
-import 'mainPaginas/andebol.dart';
-import 'mainPaginas/badminton.dart';
-import 'mainPaginas/basket.dart';
-import 'mainPaginas/pingpong.dart';
-import 'mainPaginas/volei.dart';
-import 'mainPaginas/reigby.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,21 +16,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'TaçaUA',
-        theme: ThemeData(primarySwatch: Colors.orange),
+        theme: ThemeData(primarySwatch: Colors.green),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/login': (context) => LoginPage(),
-          '/economia': (context) => EconomiaPage(),
-          '/volei': (context) => VoleiPage(),
-          '/reigby': (context) => ReigbyPage(),
-          '/pingpong': (context) => PingpongPage(),
-          '/basket': (context) => BasketPage(),
-          '/andebol': (context) => AndebolPage(),
-          '/badminton': (context) => BadmintonPage(),
+          '/main': (context) => MyHomePage(),
+          '/addResult': (context) => addResultPage(),
         },
         home: AnimatedSplashScreen(
           splash: 'assets/TacaUA_logo.png', // use any widget here
-          nextScreen: MyHomePage(),
+          nextScreen: ResultadoJogo(),
           splashTransition: SplashTransition.rotationTransition,
           duration: 3000,
           splashIconSize: 2200,
@@ -44,15 +32,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class ResultadoJogo extends StatefulWidget {
+  const ResultadoJogo({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ResultadoJogo> createState() => _ResultadoJogoState();
 }
 
-
 // Lista de emojis para a scrollbar horizontal
-class _MyHomePageState extends State<MyHomePage> {
+class _ResultadoJogoState extends State<ResultadoJogo> {
   @override
   Widget buildHomePage(BuildContext context) {
     return Scaffold(
@@ -108,11 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
-     void _navigateToEconomiaPage() {
-      Navigator.pushNamed(context, '/economia');
-    }
-
     return Scaffold(
       appBar: AppBar(
         // Logotipo
@@ -121,14 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           // Botao de login
           IconButton(
-            icon: const Icon(Icons.admin_panel_settings_sharp),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                MaterialPageRoute(builder: (context) => MyHomePage()),
               );
             },
           ),
+          // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
           // Botão de pesquisa (não sei se queriam isto ou aquela merda do dropdown)
           FilterButton(),
         ],
@@ -176,42 +159,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       _selectedSportIndex = index;
                     });
-                    if (index == 1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BasketPage()),
-                      );
-                    }
-                    if (index == 2) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => VoleiPage()),
-                      );
-                    }
-                    if (index == 3) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AndebolPage()),
-                      );
-                    }
-                    if (index == 4) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BadmintonPage()),
-                      );
-                    }
-                    if (index == 5) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ReigbyPage()),
-                      );
-                    }
-                    if (index == 6) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PingpongPage()),
-                      );
-                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.all(8),
@@ -295,20 +242,48 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildResultados() {
     return ListView(
       children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-              child: Text(
-                'Jogos por ocorrer: ',
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                child: Text(
+                  'Jogos por ocorrer: ',
+                  style: TextStyle(
+                    color: Colors.orange,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
+              Spacer(),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Lógica para redirecionar para outra página
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => addJogoPage()),
+                    );
+                  },
+                  child: Text(
+                    '+',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    elevation: 0,
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
         Container(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -316,43 +291,23 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(height: 0),
               GameCard(
-                team1: 'E. Informática',
-                team2: 'E. Mecânica',
-                time: '14:00',
-                location: 'Pavilhão Aristides Hall',
-              ),
-              GameCard(
                 team1: 'Design',
                 team2: 'Música',
                 time: '16:00',
-                location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
                 team1: 'E. Civil',
                 team2: 'Matemática',
                 time: '18:00',
-                location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
                 team1: 'Biologia',
                 team2: 'Física',
                 time: '20:00',
-                location: 'Pavilhão Aristides Hall',
               ),
             ],
           ),
         ),
-        Container(
-            padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-            child: Text(
-              'Jogos terminados: ',
-              style: TextStyle(
-                color: Colors.orange,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
         SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(16),
@@ -362,24 +317,27 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 0),
               GameCard(
                 team1: 'E. Informática',
+                team2: 'E. Mecânica',
+                score1: 4,
+                score2: 1,
+              ),
+              GameCard(
+                team1: 'E. Civil',
                 team2: 'E. Química',
                 score1: 3,
                 score2: 1,
-                location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
                 team1: 'E. Civil',
                 team2: 'E. Mecânica',
                 score1: 2,
                 score2: 2,
-                location: 'Pavilhão Aristides Hall',
               ),
               GameCard(
                 team1: 'Design',
                 team2: 'Física',
                 score1: 4,
                 score2: 5,
-                location: 'Pavilhão Aristides Hall',
               ),
             ],
           ),
@@ -388,123 +346,76 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  String? _selectedOrderBy;
-
-Widget _buildOrderByDropdown() {
-  return Container(
-    width: 150,
-    child: DropdownButton<String>(
-      value: _selectedOrderBy,
-      iconSize: 20,
-      elevation: 16,
-      style: TextStyle(color: Colors.black, fontSize: 14),
-      onChanged: (String? newValue) {
-        setState(() {
-          _selectedOrderBy = newValue!;
-          if (newValue == 'Crescente') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
-            );
-          } else if (newValue == 'Decrescente') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Decrescente()),
-            );
-          }
-        });
-      },
-      items: <String>[
-        'Crescente',
-        'Decrescente',
-      ].map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      hint: Text('Order by'),
-    ),
-  );
-}
-
-
   // Função que mete la as classificações para as diferentes modalidades
   // Mesma coisa que escrevi na função de cima
   Widget _buildClassificacoes() {
-  return ListView(
-    children: [
-      Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Classificações',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                _buildOrderByDropdown(),
-              ],
-            ),
-            SizedBox(height: 16),
-            ClassificacaoCard(
-              team: 'E. Informática',
-              position: 1,
-              points: 6,
-              goalsScored: 5,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Mecânica',
-              position: 2,
-              points: 3,
-              goalsScored: 3,
-              goalsConceded: 4,
-            ),
-            ClassificacaoCard(
-              team: 'E. Química',
-              position: 3,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'E. Civil',
-              position: 4,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Design',
-              position: 5,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Economia',
-              position: 6,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-            ClassificacaoCard(
-              team: 'Física',
-              position: 7,
-              points: 1,
-              goalsScored: 2,
-              goalsConceded: 2,
-            ),
-          ],
+    return ListView(
+      children: [
+        Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Classificações',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              ClassificacaoCard(
+                team: 'E. Informática',
+                position: 1,
+                points: 6,
+                goalsScored: 5,
+                goalsConceded: 2,
+              ),
+              ClassificacaoCard(
+                team: 'E. Mecânica',
+                position: 2,
+                points: 3,
+                goalsScored: 3,
+                goalsConceded: 4,
+              ),
+              ClassificacaoCard(
+                team: 'E. Química',
+                position: 3,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+              ClassificacaoCard(
+                team: 'E. Civil',
+                position: 4,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+              ClassificacaoCard(
+                team: 'Design',
+                position: 5,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+              ClassificacaoCard(
+                team: 'Economia',
+                position: 6,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+              ClassificacaoCard(
+                team: 'Física',
+                position: 7,
+                points: 1,
+                goalsScored: 2,
+                goalsConceded: 2,
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
- }
+      ],
+    );
+  }
 }
 
 // Cards para as classificações
@@ -562,23 +473,22 @@ class ClassificacaoCard extends StatelessWidget {
   }
 }
 
-// Cards para os jogos
 class GameCard extends StatelessWidget {
   final String team1;
   final String team2;
   final String? time;
-  final String location;
   final int score1;
   final int score2;
+  final VoidCallback? onAddResultPressed;
 
   const GameCard({
     Key? key,
     required this.team1,
     required this.team2,
     this.time,
-    required this.location,
     this.score1 = -1,
     this.score2 = -1,
+    this.onAddResultPressed,
   }) : super(key: key);
 
   @override
@@ -607,14 +517,29 @@ class GameCard extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(gamePlayed
-                    ? 'Local: $location'
-                    : 'Horário: ${time ?? ''} - Local: $location'),
+                    ? 'Horário: ${time ?? ''}'
+                    : 'Horário: ${time ?? ''}'),
               ),
             ),
+            if (!gamePlayed)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => addResultPage()),
+                  );
+                },
+                child: Text('Adicionar resultado'),
+              ),
             if (gamePlayed)
               Text(
                 '$score1 - $score2',
                 style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            if (gamePlayed)
+              ElevatedButton(
+                onPressed: onAddResultPressed,
+                child: Text('Editar'),
               ),
           ],
         ),

@@ -87,7 +87,7 @@ class _LoginDemoState extends State<LoginPage> {
               },
               child: const Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ),
             Container(

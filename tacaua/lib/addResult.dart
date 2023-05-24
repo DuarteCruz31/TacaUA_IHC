@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tacaua/admin.dart';
+import 'package:tacaua/resultadoJogo.dart';
 import 'main.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => addResultPage(),
           '/main': (context) => MyHomePage(),
+          '/resultadoJogo': (context) => ResultadoJogo(),
         });
   }
 }
@@ -60,7 +62,7 @@ class _addResultDemoState extends State<addResultPage> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Nucleo A',
+                              labelText: 'E. Informática',
                             ),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(
@@ -76,7 +78,7 @@ class _addResultDemoState extends State<addResultPage> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Nucleo B',
+                              labelText: 'E. Mecânica',
                             ),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(
@@ -98,7 +100,7 @@ class _addResultDemoState extends State<addResultPage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => MyAdminPage()));
+                      MaterialPageRoute(builder: (_) => ResultadoJogo()));
                 },
                 child: const Text(
                   'Adicionar',

@@ -14,7 +14,7 @@ class _FilterButtonState extends State<FilterButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.filter_list),
+      icon: Icon(Icons.filter_alt_outlined),
       onPressed: () {
         _showFilterDialog(context);
       },
